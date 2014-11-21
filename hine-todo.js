@@ -6,14 +6,10 @@ if (Meteor.isClient) {
   // This code only runs on the client
   Template.body.helpers({
     tasks: function () {
-      if(Session.get("hideCompleted")) {
-        return Tasks.find({checked: {$ne: true}}, {sort: {createdAt: -1}});
-      } else {
-        return Tasks.find({}, {sort: {createdAt: -1}});
-      }
+      return Tasks.find({}, {sort: {createdAt: -1}});
     },
-    hideCompleted: function() {
-      return Session.get("hideCompleted");
+    weeklyTasks: function() {
+      return Tasks.find({}, {sort: {createdAt: -1}});
     },
     incompleteCount: function() {
       return Tasks.find({checked: {$ne: true}}).count();
@@ -92,14 +88,3 @@ if(Meteor.isServer) {
     return Tasks.find({owner: this.userId});
   });
 }
-
-/*
-* Routing for this application uses iron-router
-*/
-Router.route('/', function() {
-  this.render('daily');
-});
-
-Router.route('/weekly', function() {
-  this.render('weekly');
-});
