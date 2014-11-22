@@ -18,7 +18,9 @@
       <tbody>
         <td id="sunday-col">
           <ul>
-            {{#}}
+            {{#each tasks}}
+              {{> sunday}}
+            {{/each}}
           </ul>
         </td>
         <td id="monday-col">
@@ -48,4 +50,54 @@
       </tbody>
     </table>
   </div>
+</template>
+
+<template name="sunday">
+  <li class="{{#if checked}}checked{{/if}}">
+    <button class="delete">&times;</button>
+    <input type="checkbox" checked="{{checked}}" class="toggle-checked">
+    <span class="text">{{text}}</span>
+  </li>
+</template>
+<template name="monday">
+  <li class="{{#if checked}}checked{{/if}}">
+    <button class="delete">&times;</button>
+    <input type="checkbox" checked="{{checked}}" class="toggle-checked">
+    <span class="text">{{text}}</span>
+  </li>
+</template>
+<template name="tuesday">
+  <li class="{{#if checked}}checked{{/if}}">
+    <button class="delete">&times;</button>
+    <input type="checkbox" checked="{{checked}}" class="toggle-checked">
+    <span class="text">{{text}}</span>
+  </li>
+</template>
+<template name="wednesday">
+  <li class="{{#if checked}}checked{{/if}}">
+    <button class="delete">&times;</button>
+    <input type="checkbox" checked="{{checked}}" class="toggle-checked">
+    <span class="text">{{text}}</span>
+  </li>
+</template>
+<template name="thursday">
+  <li class="{{#if checked}}checked{{/if}}">
+    <button class="delete">&times;</button>
+    <input type="checkbox" checked="{{checked}}" class="toggle-checked">
+    <span class="text">{{text}}</span>
+  </li>
+</template>
+<template name="friday">
+  <li class="{{#if checked}}checked{{/if}}">
+    <button class="delete">&times;</button>
+    <input type="checkbox" checked="{{checked}}" class="toggle-checked">
+    <span class="text">{{text}}</span>
+  </li>
+</template>
+<template name="saturday">
+  <li class="{{#if checked}}checked{{/if}}">
+    <button class="delete">&times;</button>
+    <input type="checkbox" checked="{{checked}}" class="toggle-checked">
+    <span class="text">{{text}}</span>
+  </li>
 </template>

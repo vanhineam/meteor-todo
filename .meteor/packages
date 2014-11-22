@@ -10,4 +10,5 @@ accounts-twitter
 accounts-google
 accounts-ui
 iron:router
+richsilv:pikaday
 

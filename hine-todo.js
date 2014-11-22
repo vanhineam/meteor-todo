@@ -7,9 +7,6 @@ if (Meteor.isClient) {
   Template.Daily.helpers({
     tasks: function () {
       return Tasks.find({}, {sort: {createdAt: -1}});
-    },
-    weeklyTasks: function() {
-      return Tasks.find({}, {sort: {createdAt: -1}});
     }
   });
 
@@ -19,12 +16,54 @@ if (Meteor.isClient) {
     }
   });
 
+  Template.sunday.helpers({
+    tasks: function() {
+      return Tasks.find({day: 0});
+    }
+  });
+
+  Template.monday.helpers({
+    tasks: function() {
+      return Tasks.find({day: 1}, {sort: {createdAt: -1}});
+    }
+  });
+
+  Template.tuesday.helpers({
+    tasks: function() {
+      return Tasks.find({day: 2}, {sort: {createdAt: -1}});
+    }
+  });
+
+  Template.wednesday.helpers({
+    tasks: function() {
+      return Tasks.find({day: 3}, {sort: {createdAt: -1}});
+    }
+  });
+
+  Template.thursday.helpers({
+    tasks: function() {
+      return Tasks.find({day: 4}, {sort: {createdAt: -1}});
+    }
+  });
+
+  Template.friday.helpers({
+    tasks: function() {
+      return Tasks.find({day: 5}, {sort: {createdAt: -1}});
+    }
+  });
+
+  Template.saturday.helpers({
+    tasks: function() {
+      return Tasks.find({day: 6}, {sort: {createdAt: -1}});
+    }
+  });
+
   Template.Daily.events({
     "submit .new-task": function (event) {
       // This is called when a new task is created
       var text = event.target.text.value;
-
-      Meteor.call("addTask", text);
+      var day = 0;
+      Meteor.call("addTask", text, day);
 
       // Clear the form
       event.target.text.value = "";
@@ -66,13 +105,14 @@ if (Meteor.isClient) {
 * security and speed.
 */
 Meteor.methods({
-  addTask: function(text) {
+  addTask: function(text, day) {
     if(!Meteor.userId()) {
       throw new Meteor.Error("not-authorized");
     }
 
     Tasks.insert({
       text: text,
+      day: day,
       createdAt: new Date(),
       owner: Meteor.userId(),
       username: Meteor.user().username || Meteor.user().profile.name
