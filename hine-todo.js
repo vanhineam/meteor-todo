@@ -4,19 +4,22 @@ Tasks = new Mongo.Collection("tasks");
 if (Meteor.isClient) {
   Meteor.subscribe("tasks");
   // This code only runs on the client
-  Template.body.helpers({
+  Template.Daily.helpers({
     tasks: function () {
       return Tasks.find({}, {sort: {createdAt: -1}});
     },
     weeklyTasks: function() {
       return Tasks.find({}, {sort: {createdAt: -1}});
-    },
+    }
+  });
+
+  Template.Header.helpers({
     incompleteCount: function() {
       return Tasks.find({checked: {$ne: true}}).count();
     }
   });
 
-  Template.body.events({
+  Template.Daily.events({
     "submit .new-task": function (event) {
       // This is called when a new task is created
       var text = event.target.text.value;
@@ -88,3 +91,11 @@ if(Meteor.isServer) {
     return Tasks.find({owner: this.userId});
   });
 }
+
+Router.route('/', function () {
+  this.render('Daily');
+});
+
+Router.route('/weekly', function() {
+  this.render('Weekly');
+});

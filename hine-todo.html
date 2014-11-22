@@ -1,0 +1,18 @@
+<head>
+  <title>Todo List</title>
+</head>
+
+<body>
+{{>Header}}
+</body>
+
+<template name="Header">
+  <header>
+    <h1 class="header-text">Todo List ({{incompleteCount}})</h1>
+    <a class="link" href="/">Daily</a>
+    <a class="link" href="/weekly">Weekly</a>
+    <a class="link" href="/monthly">Monthly</a>
+    {{> loginButtons align="right"}}
+  </header>
+</template>
+
