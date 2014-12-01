@@ -18,51 +18,55 @@ if (Meteor.isClient) {
 
   Template.sunday.helpers({
     tasks: function() {
-      return Tasks.find({day: 0});
+      return weekTask(0);
     }
   });
 
   Template.monday.helpers({
     tasks: function() {
-      return Tasks.find({day: 1}, {sort: {createdAt: -1}});
+      return weekTask(1);
     }
   });
 
   Template.tuesday.helpers({
     tasks: function() {
-      return Tasks.find({day: 2}, {sort: {createdAt: -1}});
+      return weekTask(2);
     }
   });
 
   Template.wednesday.helpers({
     tasks: function() {
-      return Tasks.find({day: 3}, {sort: {createdAt: -1}});
+      return weekTask(3);
     }
   });
 
   Template.thursday.helpers({
     tasks: function() {
-      return Tasks.find({day: 4}, {sort: {createdAt: -1}});
+      return weekTask(4);
     }
   });
 
   Template.friday.helpers({
     tasks: function() {
-      return Tasks.find({day: 5}, {sort: {createdAt: -1}});
+      return weekTask(5);
     }
   });
 
   Template.saturday.helpers({
     tasks: function() {
-      return Tasks.find({day: 6}, {sort: {createdAt: -1}});
+      return weekTask(6);
     }
   });
+
+  function weekTask(day) {
+    return Tasks.find({day: day});
+  }
 
   Template.Daily.events({
     "submit .new-task": function (event) {
       // This is called when a new task is created
       var text = event.target.text.value;
-      var day = 0;
+      var day = Math.round(Math.random() * (6 - 0) + 0);
       Meteor.call("addTask", text, day);
 
       // Clear the form
@@ -76,6 +80,16 @@ if (Meteor.isClient) {
   });
 
   Template.task.events({
+    "click .toggle-checked": function() {
+      // Set the checked property to the opposite of its current value
+      Meteor.call("setChecked", this._id, ! this.checked);
+    },
+    "click .delete": function() {
+      Meteor.call("deleteTask", this._id);
+    }
+  });
+
+  Template.weekentry.events({
     "click .toggle-checked": function() {
       // Set the checked property to the opposite of its current value
       Meteor.call("setChecked", this._id, ! this.checked);

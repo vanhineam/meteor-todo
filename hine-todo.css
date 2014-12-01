@@ -163,4 +163,29 @@ header .hide-completed {
 #week-table {
 	table-layout: fixed;
 	width: 100%;
+  border-collapse: collapse;
+}
+
+#week-table td, th{
+  border-left: 1px solid #000;
+  border-right: 1px solid #000;
+}
+
+#week-table td:first-child {
+  border-left: none;
+}
+
+#week-table th:first-child {
+  border-left: none;
+}
+
+#week-table td:last-child {
+  border-right: none;
+}
+#week-table th:last-child {
+  border-right: none;
+}
+.week-col {
+  border-bottom: #eee solid 1px;
+  padding: 5px;
 }
