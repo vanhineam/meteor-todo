@@ -10,14 +10,17 @@ if (Meteor.isClient) {
     }
   });
 
-  Template.Daily.rendered = function(){
-    var picker = new Pikaday({
-    field: $("#datepicker")[0],
-    format: 'D MMM YYYY',
-    onSelect: function() {
-        console.log(this.getMoment().format('Do MMMM YYYY'));
-    }
-});
+  Template.inputForm.rendered = function(){
+    Meteor.setTimeout(function() {
+      var picker = new Pikaday({
+        field: $('#datepicker')[0],
+        trigger: $('#dateButton')[0],
+        format: 'D MMM YYYY',
+        onSelect: function() {
+            console.log(this.getMoment().format('Do MMMM YYYY'));
+        }
+      });
+    }, 1000);
   };
 
   Template.Header.helpers({
@@ -68,20 +71,24 @@ if (Meteor.isClient) {
     }
   });
 
-  Template.Daily.events({
+  Template.inputForm.events({
     "submit .new-task": function (event) {
+      event.preventDefault();
+      console.log("hiii");
+      event.stopPropagation();
       // This is called when a new task is created
       var text = event.target.text.value;
-      var day = Math.round(Math.random() * (6 - 0) + 0);
+      var dateObj = event.target.date.value;
+      console.log(dateObj);
+      var day = 0;
       Meteor.call("addTask", text, day);
 
       // Clear the form
+      
       event.target.text.value = "";
+      event.target.date.value = "";
 
       return false;
-    },
-    "change .hide-completed input": function(event) {
-      Session.set("hideCompleted", event.target.checked);
     }
   });
 

@@ -189,3 +189,16 @@ header .hide-completed {
   border-bottom: #eee solid 1px;
   padding: 5px;
 }
+
+#datepicker {
+  display: none;
+}
+
+#dateButton {
+  float: right;
+  position: relative;
+  top: -40px;
+  right: 10px;
+  height: 16px;
+  width: 15px;
+}
