@@ -4,19 +4,11 @@
   </div>
   <div class="container">
     {{#if currentUser}}
-      <form class="new-task" autocomplete="off">
-        <table>
-          <tr>
-            <td><input type="text" name="text" placeholder="Type to add new tasks"></td>
-            <td></td>
-          </tr>
-        </table>
-        <input type="text" id="datepicker">
-      </form>
+      {{> inputForm}}
     {{else}}
-      <form class="new-task" autocomplete="off">
+      <!-- <form class="new-task" autocomplete="off">
         <input type="text" name="text" placeholder="Please Sign in" disabled>
-      </form>
+      </form> -->
     {{/if}}
     <ul>
       {{#each tasks}}
@@ -32,4 +24,12 @@
     <input type="checkbox" checked="{{checked}}" class="toggle-checked">
     <span class="text">{{text}}</span>
   </li>
+</template>
+
+<template name="inputForm">
+  <form class="new-task" autocomplete="off">
+    <input id="taskText" type="text" name="text" placeholder="Type to add new tasks">
+    <input type="text" id="datepicker" name="date">
+    <img id="dateButton" src="/img/datepicker.png">
+  </form>
 </template>
