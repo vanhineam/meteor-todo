@@ -77,7 +77,6 @@ if (Meteor.isClient) {
     var day = start.getDate() + 7;
 
     var end = new Date(year, month, day);
-    console.log(end);
     return Tasks.find({date: {$gte: start, $lt : end}, day: weekday});
   }
 
@@ -129,7 +128,38 @@ if (Meteor.isClient) {
     passwordSignupFields: "USERNAME_ONLY"
   });
 
-  
+  Template.Monthly.helpers({    
+    options: function() {
+      var results = new Array();
+      var events = getMonthlyTasks();
+      $.each(events, function(index, value) {
+        var temp = {
+          title: '',
+          start: ''
+        };
+        temp.title = value.text;
+        var date = value.date;
+        var year = date.getFullYear();
+        var month = date.getMonth() + 1;
+        var day = date.getDate();
+        var dateString = year + '-' + month + '-' + day;
+        temp.start = dateString;
+        results.push(temp);
+      });
+      return {
+        events: results,
+        timeFormat: ''
+      }
+    }
+  });
+
+  function getMonthlyTasks() {
+    var start = new Date();
+    var year = start.getFullYear();
+    var month = start.getMonth() + 1;
+    var end = new Date(year, month);
+    return Tasks.find({date: {$gte : start, $lt : end}}).fetch();
+  }
 }
 
 /*
@@ -181,4 +211,8 @@ Router.route('/', function () {
 
 Router.route('/weekly', function() {
   this.render('Weekly');
+});
+
+Router.route('/monthly', function() {
+  this.render('Monthly');
 });
