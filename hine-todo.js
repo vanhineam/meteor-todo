@@ -7,11 +7,18 @@ if (Meteor.isClient) {
   Template.Daily.helpers({
     tasks: function () {
       return Tasks.find({}, {sort: {createdAt: -1}});
-    },
-    weeklyTasks: function() {
-      return Tasks.find({}, {sort: {createdAt: -1}});
     }
   });
+
+  Template.Daily.rendered = function(){
+    var picker = new Pikaday({
+    field: $("#datepicker")[0],
+    format: 'D MMM YYYY',
+    onSelect: function() {
+        console.log(this.getMoment().format('Do MMMM YYYY'));
+    }
+});
+  };
 
   Template.Header.helpers({
     incompleteCount: function() {
@@ -19,12 +26,54 @@ if (Meteor.isClient) {
     }
   });
 
+  Template.sunday.helpers({
+    tasks: function() {
+      return weekTask(0);
+    }
+  });
+
+  Template.monday.helpers({
+    tasks: function() {
+      return weekTask(1);
+    }
+  });
+
+  Template.tuesday.helpers({
+    tasks: function() {
+      return weekTask(2);
+    }
+  });
+
+  Template.wednesday.helpers({
+    tasks: function() {
+      return weekTask(3);
+    }
+  });
+
+  Template.thursday.helpers({
+    tasks: function() {
+      return weekTask(4);
+    }
+  });
+
+  Template.friday.helpers({
+    tasks: function() {
+      return weekTask(5);
+    }
+  });
+
+  Template.saturday.helpers({
+    tasks: function() {
+      return weekTask(6);
+    }
+  });
+
   Template.Daily.events({
     "submit .new-task": function (event) {
       // This is called when a new task is created
       var text = event.target.text.value;
-
-      Meteor.call("addTask", text);
+      var day = Math.round(Math.random() * (6 - 0) + 0);
+      Meteor.call("addTask", text, day);
 
       // Clear the form
       event.target.text.value = "";
@@ -46,9 +95,23 @@ if (Meteor.isClient) {
     }
   });
 
+  Template.weekentry.events({
+    "click .toggle-checked": function() {
+      // Set the checked property to the opposite of its current value
+      Meteor.call("setChecked", this._id, ! this.checked);
+    },
+    "click .delete": function() {
+      Meteor.call("deleteTask", this._id);
+    }
+  });
+
   Accounts.ui.config({
     passwordSignupFields: "USERNAME_ONLY"
   });
+
+  function weekTask(day) {
+    return Tasks.find({day: day});
+  }
 }
 
 /*
@@ -66,13 +129,14 @@ if (Meteor.isClient) {
 * security and speed.
 */
 Meteor.methods({
-  addTask: function(text) {
+  addTask: function(text, day) {
     if(!Meteor.userId()) {
       throw new Meteor.Error("not-authorized");
     }
 
     Tasks.insert({
       text: text,
+      day: day,
       createdAt: new Date(),
       owner: Meteor.userId(),
       username: Meteor.user().username || Meteor.user().profile.name

@@ -16,36 +16,92 @@
         </tr>
       </thead>
       <tbody>
-        <td id="sunday-col">
-          <ul>
-            {{#}}
-          </ul>
+        <td id="sunday-col" class="week-col">
+          {{> sunday}}
         </td>
-        <td id="monday-col">
-          <ul>
-          </ul>
+        <td id="monday-col" class="week-col">
+          {{> monday}}
         </td>
-        <td id="tuesday-col">
-          <ul>
-          </ul>
+        <td id="tuesday-col" class="week-col">
+          {{> tuesday}}
         </td>
-        <td id="wednesday-col">
-          <ul>
-          </ul>
+        <td id="wednesday-col" class="week-col">
+          {{> wednesday}}
         </td>
-        <td id="thursday-col">
-          <ul>
-          </ul>
+        <td id="thursday-col" class="week-col">
+          {{> thursday}}
         </td>
-        <td id="friday-col">
-          <ul>
-          </ul>
+        <td id="friday-col" class="week-col">
+          {{> friday}}
         </td>
-        <td id="saturday-col">
-          <ul>
-          </ul>
+        <td id="saturday-col" class="week-col">
+          {{> saturday}}
         </td>
       </tbody>
     </table>
   </div>
+</template>
+
+<template name="sunday">
+  <ul>
+    {{#each tasks}}
+      {{> weekentry}}
+    {{/each}}
+  </ul>
+</template>
+
+<template name="monday">
+  <ul>
+    {{#each tasks}}
+      {{> weekentry}}
+    {{/each}}
+  </ul>
+</template>
+
+<template name="tuesday">
+  <ul>
+    {{#each tasks}}
+      {{> weekentry}}
+    {{/each}}
+  </ul>
+</template>
+
+<template name="wednesday">
+ <ul>
+    {{#each tasks}}
+      {{> weekentry}}
+    {{/each}}
+  </ul>
+</template>
+
+<template name="thursday">
+  <ul>
+    {{#each tasks}}
+      {{> weekentry}}
+    {{/each}}
+  </ul>
+</template>
+
+<template name="friday">
+  <ul>
+    {{#each tasks}}
+      {{> weekentry}}
+    {{/each}}
+  </ul>
+</template>
+
+<template name="saturday">
+  <ul>
+    {{#each tasks}}
+      {{> weekentry}}
+    {{/each}}
+  </ul>
+</template>
+
+<template name="weekentry">
+  <li class="{{#if checked}}checked{{/if}}">
+    <button class="delete">&times;</button>
+    <input type="checkbox" checked="{{checked}}" class="toggle-checked">
+    <span class="text">{{text}}</span>
+  </li>
 </template>
