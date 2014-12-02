@@ -10,4 +10,6 @@ accounts-twitter
 accounts-google
 accounts-ui
 iron:router
+linto:jquery-ui
 richsilv:pikaday
+

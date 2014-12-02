@@ -10,6 +10,16 @@ if (Meteor.isClient) {
     }
   });
 
+  Template.Daily.rendered = function(){
+    var picker = new Pikaday({
+    field: $("#datepicker")[0],
+    format: 'D MMM YYYY',
+    onSelect: function() {
+        console.log(this.getMoment().format('Do MMMM YYYY'));
+    }
+});
+  };
+
   Template.Header.helpers({
     incompleteCount: function() {
       return Tasks.find({checked: {$ne: true}}).count();
@@ -58,10 +68,6 @@ if (Meteor.isClient) {
     }
   });
 
-  function weekTask(day) {
-    return Tasks.find({day: day});
-  }
-
   Template.Daily.events({
     "submit .new-task": function (event) {
       // This is called when a new task is created
@@ -102,6 +108,10 @@ if (Meteor.isClient) {
   Accounts.ui.config({
     passwordSignupFields: "USERNAME_ONLY"
   });
+
+  function weekTask(day) {
+    return Tasks.find({day: day});
+  }
 }
 
 /*
