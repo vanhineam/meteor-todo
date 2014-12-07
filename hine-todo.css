@@ -1,22 +1,20 @@
-/* CSS declarations go here */
+/* CSS declarations */
+/* Globals */
 body {
   font-family: sans-serif;
   background: #eaeaea;
-  
   background-attachment: fixed;
-
   position: absolute;
   top: 0;
   bottom: 0;
   left: 0;
   right: 0;
-
   padding: 0;
   margin: 0;
-
   font-size: 14px;
 }
 
+/* The main todo list container */
 .container {
   max-width: 600px;
   margin: 0 auto;
@@ -27,6 +25,7 @@ body {
   box-shadow: 0px 0px 93px -10px rgba(0,0,0,0.75);
 }
 
+/* The header/navbar */
 header {
   background: #262626;
   padding: 20px 15px 15px 15px;
@@ -40,13 +39,14 @@ header {
 	font: 20px Arial;
 }
 
+/* Normalize links */
 .link {
 	color: white;
 	text-decoration: none;
-	margin-right: 10px;
-	
+	margin-right: 10px;	
 }
 
+/* Makes the login buttons on the right side of the navbar */
 #login-buttons {
   float: right;
 }
